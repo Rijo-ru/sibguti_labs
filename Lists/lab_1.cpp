@@ -56,15 +56,21 @@ void delNode(Node** Head) {
         temp = temp->next;
     }
 
-    double avg = (double)sum / count; // находим среднее
+    double avg = (double)sum / count; // находим среднее значение
+    cout << "Среднее значение равно: " << avg << "\n";
 
     temp = *Head;
     
     // поиск и удаление первого элемента, который ниже среднеего значения
-    while (temp != NULL && temp->data < avg) {
-        *Head = temp->next;
-        delete temp;
-        temp = *Head;
+    while (temp != NULL){
+        while (temp != NULL && temp->data >= avg)
+
+        if (temp->data < avg) {
+            prev->next = temp->next;
+            delete temp;
+            temp = prev->next;
+        }
+         temp = temp->next;
     }
 }
 
@@ -82,7 +88,10 @@ int main() {
     }
     cout << "Список: ";
     printList(Head);
-    
-    cout << "Сумма нечетных элемнтов равна:" << sumOddElements(Head);
+        
+    cout << "Сумма нечетных элемнтов равна:" << sumOddElements(Head)  << "\n";
+
+    delNode(&Head);
+    printList(Head);
     return 0;
 }
