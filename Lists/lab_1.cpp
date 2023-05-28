@@ -1,97 +1,110 @@
 #include <iostream>
 using namespace std;
 
-// нужно сформировать исходный список целых чисел и вывести
-// его на экран, затем решить задачу и вывести результат
-// сумму нечетных элементов
-struct Node { // создание структуры для элемента списка
+struct Node {
     int data;
     Node* next;
 };
 
-// Функция добавления элемента в список
-void addNode(Node*& head, int val) {
-    Node* newNode = new Node;
-    newNode->data = val;
-    newNode->next = head;
-    head = newNode;
-}
-
-// Функция для печати списка
-void printList(Node* head) {
-    while (head != NULL) {
-        cout << head->data << " ";
-        head = head->next;
-    }
-}
-
-// Функция нахождения суммы нечетных элементов
-int sumOddElements(Node* Head) {
+int sumOddElements(Node* head) {
     int sum = 0;
-    while (Head != NULL) {
-        if (Head->data % 2 != 0) {
-            sum += Head->data;
+    while (head != NULL) {
+        if (head->data % 2 != 0) {
+            sum += head->data;
         }
-        Head = Head->next;
+        head = head->next;
     }
     return sum;
 }
 
-// Функция удаления первого элемента, который меньший среднего
-void delNode(Node** Head) {
-    if (*Head == NULL) {
-        cout << "Список пуст";
+void delNode(Node*& head) {
+    if (head == NULL) {
+        cout << "Список пуст" << endl;
         return;
     }
 
-    Node* temp = *Head;
-    Node* prev = NULL;
     int sum = 0;
     int count = 0;
-    
-    // считаем сумму элементов списка
-    while (temp != NULL) {
-        sum += temp->data;
+    Node* current = head;
+    while (current != NULL) {
+        sum += current->data;
         count++;
-        temp = temp->next;
+        current = current->next;
+    }
+    double avg = static_cast<double>(sum) / count;
+    cout << "Среднее значение равно: " << avg << endl;
+
+    if (head->data < avg) {
+        Node* temp = head;
+        head = head->next;
+        cout << "Удаляемое число равно = " << temp << endl;
+        delete temp;
+        return;
+    }    
+
+    Node* prev = head;
+    current = head->next;
+    while (current != NULL) {
+        if (current->data < avg) {
+            prev->next = current->next;
+            cout << "Удаляемое число равно = " << current->data << endl;
+            delete current;
+            return;
+        }
+        prev = current;
+        current = current->next;
     }
 
-    double avg = (double)sum / count; // находим среднее значение
-    cout << "Среднее значение равно: " << avg << "\n";
+    cout << "Не найдено элементов меньше среднего значения." << endl;
+}
 
-    temp = *Head;
-    
-    // поиск и удаление первого элемента, который ниже среднеего значения
-    while (temp != NULL){
-        while (temp != NULL && temp->data >= avg)
+void printList(Node* head) {
+    if (head == NULL) {
+        cout << "Список пуст!" << endl;
+        return;
+    }
 
-        if (temp->data < avg) {
-            prev->next = temp->next;
-            delete temp;
-            temp = prev->next;
+    Node* current = head;
+    while (current != NULL) {
+        cout << current->data << " ";
+        current = current->next;
+    }
+    cout << endl;
+}
+
+void addNode(Node*& head, int value) {
+    Node* newNode = new Node;
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        Node* current = head;
+        while (current->next != NULL) {
+            current = current->next;
         }
-         temp = temp->next;
+        current->next = newNode;
     }
 }
 
-
 int main() {
-    Node* Head = NULL;
+    Node* head = NULL;
     int n, val;
     cout << "Введите количество элементов списка: ";
     cin >> n;
-    cout << "Введите значения элементов списка: " << "\n";
+    cout << "Введите значения элементов списка: " << endl;
     for (int i = 0; i < n; i++) {
-        cout << "Элемент: " << i + 1 << "\t";
+        cout << "Элемент " << i + 1 << ": ";
         cin >> val;
-        addNode(Head, val);
+        addNode(head, val);
     }
     cout << "Список: ";
-    printList(Head);
-        
-    cout << "Сумма нечетных элемнтов равна:" << sumOddElements(Head)  << "\n";
+    printList(head);
 
-    delNode(&Head);
-    printList(Head);
+    cout << "Сумма нечетных элементов равна: " << sumOddElements(head) << endl;
+
+    delNode(head);
+    printList(head);
     return 0;
 }
