@@ -3,46 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя веб-страница</title>
-    <style>
-        /* Стили для заголовка */
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        /* Стили для навигации */
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 10px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        /* Стили для основного контента */
-        main {
-            margin: 20px auto;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-        /* Стили для футера */
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            background-color: #f0f0f0;
-            padding: 10px 0;
-        }
-    </style>
+    <title>Главная</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Страница 1: Главная -->
     <header>
         <h1>Добро пожаловать на мою веб-страницу</h1>
         <nav>
@@ -53,20 +18,60 @@
             </ul>
         </nav>
     </header>
+    
     <main>
-        <section>
+        <!-- Блочная вёрстка для основного контента -->
+        <section class="content-block">
             <h2>Приветствие</h2>
             <p>Добро пожаловать на мою веб-страницу! Здесь вы найдете много интересной информации.</p>
         </section>
-        <section>
-            <h2>Новости</h2>
+
+        <!-- Вставка аудио -->
+        <section class="content-block">
+            <h2>Пример аудио</h2>
+            <audio controls>
+                <source src="cat.mp3" type="audio/mpeg">
+                Ваш браузер не поддерживает встроенное аудио.
+            </audio>
+        </section>
+        
+        <!-- Список -->
+        <section class="content-block">
+            <h2>Список</h2>
             <ul>
-                <li>Новость 1</li>
-                <li>Новость 2</li>
-                <li>Новость 3</li>
+                <li>Пункт 1</li>
+                <li>Пункт 2</li>
+                <li>Пункт 3</li>
             </ul>
         </section>
+        
+        <!-- Табличная вёрстка -->
+        <section class="content-block">
+            <h2>Таблица</h2>
+            <table>
+                <caption>Пример таблицы</caption>
+                <tr>
+                    <th>Заголовок 1</th>
+                    <th>Заголовок 2</th>
+                    <th>Заголовок 3</th>
+                </tr>
+                <tr>
+                    <td>Ячейка 1</td>
+                    <td>Ячейка 2</td>
+                    <td>Ячейка 3</td>
+                </tr>
+                <tr>
+                    <td>Ячейка 4</td>
+                    <td>Ячейка 5</td>
+                    <td>Ячейка 6</td>
+                </tr>
+            </table>
+        </section>
     </main>
+    
     <footer>
         <p>&copy; 2024 Моя веб-страница</p>
     </footer>
+
+</body>
+</html>
