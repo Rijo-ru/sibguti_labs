@@ -1,0 +1,40 @@
+{% extends 'crm_core/base.html' %}
+
+{% block content %}
+<h2>{{ site.name }}</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Информация об объекте</h5>
+                <p><strong>Адрес:</strong> {{ site.address }}</p>
+                <p><strong>Заказчик:</strong> {{ site.customer }}</p>
+                <p><strong>Статус:</strong> <span class="badge bg-{% if site.status == 'completed' %}success{% elif site.status == 'in_progress' %}primary{% else %}warning{% endif %}">{{ site.get_status_display }}</span></p>
+                <p><strong>Прораб:</strong> {{ site.supervisor }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="mt-4">Отчеты по объекту</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Вид работы</th>
+            <th>Объем</th>
+            <th>Стоимость</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in reports %}
+        <tr>
+            <td>{{ report.date }}</td>
+            <td>{{ report.work_type.name }}</td>
+            <td>{{ report.volume_completed }} {{ report.work_type.get_unit_display }}</td>
+            <td>{{ report.total_cost }} руб.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
